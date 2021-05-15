@@ -27,28 +27,19 @@ def count_words(text):
         previous_letter_1 = x
     return counter
 
+def count_sign(text, sign):
+    counter = 0
+    for x in text:
+        if x in sign:
+            counter += 1
+    return counter
+
 def basic_statistics(text):
 
     len_of_text = len(text)
-
-    number_of_spaces = 0
-    for x in text:
-        if x == ' ':
-            number_of_spaces += 1
-
-    number_of_punctuation = 0
-    for x in text: 
-        if x in punctuation_marks:
-            number_of_punctuation += 1
-
-    number_of_digits = 0
-    for x in text:
-        if x in digits:
-            number_of_digits += 1
-
     print('Number of words: %d' % count_words(text))
     print('Number of all characters: %d' % len_of_text)
-    print('Number of characters without spaces: %d' % (len_of_text - number_of_spaces))
-    print('Number of punctuation marks: %d' % number_of_punctuation)
-    print('Number of digits: %d' % number_of_digits)
+    print('Number of characters without spaces: %d' % (len_of_text - count_sign(text, ' ')))
+    print('Number of punctuation marks: %d' % count_sign(text, punctuation_marks))
+    print('Number of digits: %d' % count_sign(text, digits))
     print('')
