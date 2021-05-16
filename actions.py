@@ -74,3 +74,17 @@ def basic_statistics(text):
     print('Number of digits: %d' % count_sign(text, digits))
     print('Number of sentence: %d' % count_sentence(text))
     print('')
+
+
+def letter_statistics(text):
+    letters = {}
+    counter = 0
+
+    for x in text.lower():
+        if not(x in letters):
+            letters[x] = 1
+        else:
+            letters[x] += 1 
+
+    for key in sorted(letters):
+        print('Letter "',key,'" :',letters[key],'\t| Percent: %.2f' %((letters[key]/len(text))*100))
