@@ -5,7 +5,7 @@
 Paste your text into the text.txt file
 
 **Aviable actions:**
-1. Print text - it just display the text
+1. Print text - it just displays the text
 2. Count the words - counts the number of words
 3. Basic statistics - this action shows: 
     - Number of words
