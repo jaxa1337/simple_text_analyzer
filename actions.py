@@ -78,13 +78,27 @@ def basic_statistics(text):
 
 def sign_statistics(text):
     signs = {}
-    counter = 0
 
-    for x in text.lower():
+    for x in text:
         if not(x in signs):
             signs[x] = 1
         else:
             signs[x] += 1 
 
     for key in sorted(signs):
-        print('Sign "',key,'" :',signs[key],' \t| Percent: %.2f' %((signs[key]/len(text))*100))
+        print('Sign "',key,'" :',signs[key],' \t| Percent: %.2f' %((signs[key]/len(text))*100),'%')
+
+def letters_statistics(text):
+    letters = {}
+    sign_counter = 0
+
+    for x in text.lower():
+        if not(ord(x) in ascii_numbers_of_sign):
+            sign_counter += 1
+            if not(x in letters):
+                letters[x] = 1
+            else:
+                letters[x] += 1 
+
+    for key in sorted(letters):
+        print('Letter "',key,'" :',letters[key],' \t| Percent: %.2f' %((letters[key]/(len(text)-sign_counter))*100),'%')

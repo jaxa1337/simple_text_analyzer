@@ -8,7 +8,7 @@ action = -1
 #MAIN LOOP
 while action != 0:
     print('0 - End the program.\n1 - Print text\n2 - Count the words.')
-    print('3 - Basic statistics.\n4 - Signs statistics')
+    print('3 - Basic statistics.\n4 - Signs statistics\n5 - Letters statistics')
     action = int(input("Select the action, enter a number: "))
     #COUNT THE WORDS
     if action == 1:
@@ -22,3 +22,6 @@ while action != 0:
     elif action == 4:
         print('======================Signs statistics===================')
         actions.sign_statistics(text)
+    elif action == 5:
+        print('======================Letters statistics===================')
+        actions.letters_statistics(text)
