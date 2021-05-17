@@ -1,3 +1,4 @@
+import charts
 ascii_numbers_of_sign = [0,1,2,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,58,59,60,61,62,63,64,91,92,93,94,95,96,123,124,125,126,127,167,168,169,170,173,174,175]
 punctuation_marks = [',','.','?','!',';','-','(',')','\'','"','[',']','{','}']
 capital_letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','U','V','X','Y','Z','Ł','Ó','Ż','Ź']
@@ -102,3 +103,6 @@ def letters_statistics(text):
 
     for key in sorted(letters):
         print('Letter "',key,'" :',letters[key],' \t| Percent: %.2f' %((letters[key]/(len(text)-sign_counter))*100),'%')
+    
+    charts.draw_bar_chart(letters)
+    

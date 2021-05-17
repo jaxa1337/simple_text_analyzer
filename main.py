@@ -1,4 +1,4 @@
-import actions
+import actions, charts
 #input('TEXT ANALISYS IN THE TERMINAL\nPaste text into the file \'text.txt\', then press ENTER ...')
 
 text_file = open('text.txt','r',encoding='utf-8')
