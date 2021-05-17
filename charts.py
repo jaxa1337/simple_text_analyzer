@@ -11,9 +11,8 @@ def draw_bar_chart(dictionary):
             if dictionary[i] == j:
                 sort_dict[i] = j
 
-    plt.grid(True)
-    plt.bar(sort_dict.keys(),sort_dict.values())
-    plt.ylabel('Quantity')
-    plt.xlabel('Letter')
-    plt.title('The number of occurrences of letters')
+    fig, ax = plt.subplots()
+    ax.bar(sort_dict.keys(),sort_dict.values())
+    ax.set_axisbelow(True)
+    ax.grid()
     plt.show()
