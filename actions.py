@@ -3,7 +3,9 @@ ascii_numbers_of_sign = [0,1,2,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,2
 punctuation_marks = [',','.','?','!',';','-','(',')','\'','"','[',']','{','}']
 capital_letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','U','V','X','Y','Z','Ł','Ó','Ż','Ź']
 digits = [0,1,2,3,4,5,6,7,8,9]
+vowels = ['a','o','i','e','y','u','ę','ą']
 
+    
 def count_words(text):
     counter = 0
     temp = 3
@@ -103,6 +105,39 @@ def letters_statistics(text):
 
     for key in sorted(letters):
         print('Letter "',key,'" :',letters[key],' \t| Percent: %.2f' %((letters[key]/(len(text)-sign_counter))*100),'%')
+
+    print('Sum of all letters: {sum_}'.format(sum_ = sum(letters.values())))
     
-    charts.draw_bar_chart(letters)
+    cont = 'null'
+    while cont != 'Y' or cont != 'N':
+        cont = input('Do you want to draw a chart? [Y/N]: ')
+        if cont == 'Y':
+            charts.draw_bar_chart(letters)
+            break
+        elif cont == 'N':
+            break
     
+def vowels_and_consonats(text):
+    vowelsCounter = 0
+    consonantsCounter =0
+    letterCounter = 0
+
+    for x in text.lower():
+        if not(ord(x) in ascii_numbers_of_sign):
+            letterCounter +=1
+            if x in vowels:
+                vowelsCounter += 1
+            else:
+                consonantsCounter +=1
+
+    print('Number of vowels: {v}    \t| Procent: {pv:.2f}%'.format(v = vowelsCounter, pv = vowelsCounter/letterCounter*100))
+    print('Number of consonats: {c} \t| Procent: {pc:.2f}%'.format(c = consonantsCounter, pc = consonantsCounter/letterCounter*100))
+    
+    cont = 'null'
+    while cont != 'Y' or cont != 'N':
+        cont = input('Do you want to draw a chart? [Y/N]: ')
+        if cont == 'Y':
+            charts.draw_pie_chart([vowelsCounter,consonantsCounter],['Vowels','Consonants'])
+            break
+        elif cont == 'N':
+            break

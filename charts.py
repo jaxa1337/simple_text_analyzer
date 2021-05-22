@@ -30,6 +30,13 @@ def draw_bar_chart(dictionary):
                 fontsize = 10, fontweight ='bold',
                 color ='black', va = 'center_baseline')
 
-    plt.xlabel('Letters')
-    plt.ylabel('Amount')
+    plt.xlabel('Amount')
+    plt.ylabel('Letters')
+    plt.show()
+
+def draw_pie_chart(values, labels):
+
+    fig, ax = plt.subplots()
+    ax.pie(values, labels = labels,autopct='%1.2f%%')
+    ax.axis('equal')
     plt.show()
