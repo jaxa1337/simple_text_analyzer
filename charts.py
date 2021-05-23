@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def draw_bar_chart(dictionary):
     v = sorted(dictionary.values(), reverse= True)
-
+    
     sort_dict = {}
     for j in v:
         for i in dictionary:
