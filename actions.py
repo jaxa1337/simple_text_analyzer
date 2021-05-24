@@ -1,5 +1,4 @@
 import charts
-ascii_numbers_of_sign = [0,1,2,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,58,59,60,61,62,63,64,91,92,93,94,95,96,123,124,125,126,127,167,168,169,170,171,173,174,175,187,8212,8230,]
 punctuation_marks = [',','.','?','!',';','-','(',')','\'','"','[',']','{','}','…','»','«','—']
 capital_letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','W','V','X','Y','Z','Ł','Ó','Ż','Ź','Ą','Ę','Ń','Ś','Ć','É','Á']
 digits = ['0','1','2','3','4','5','6','7','8','9']
@@ -78,7 +77,10 @@ def sign_statistics(text):
             signs[x] += 1 
 
     for key in sorted(signs):
-        print('Sign "',key,'" :',signs[key],' \t| Percent: %.2f' %((signs[key]/len(text))*100),'%')
+        if key != '\n':
+            print('Sign "',key,'" :',signs[key],' \t| Percent: %.2f' %((signs[key]/len(text))*100),'%')
+        else:
+            print('Sign \'New line\':', signs[key],' | Percent: %.2f' %((signs[key]/len(text))*100),'%')
 
 def letters_statistics(text):
     letters = {}
@@ -112,7 +114,7 @@ def vowels_and_consonats(text):
     letterCounter = 0
 
     for x in text.lower():
-        if not(ord(x) in ascii_numbers_of_sign):
+        if x.upper() in capital_letters:
             letterCounter +=1
             if x in vowels:
                 vowelsCounter += 1
