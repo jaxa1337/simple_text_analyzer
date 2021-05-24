@@ -5,6 +5,7 @@ capital_letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','
 digits = ['0','1','2','3','4','5','6','7','8','9']
 vowels = ['a','o','i','e','y','u','ę','ą']
 end_of_sentence = ['.','!','?']
+space = [' ','\n','\t']
 
 def count_words(text):
     counter = 0
@@ -38,19 +39,16 @@ def count_sentence(text):
     temp = 1
     previous_letter = text[0]
     next_letter = text[2]
-    next_letter_2 = text[3]
 
     for x in text[1:]:
         temp += 1
-        if x == '.' and previous_letter != '.' and (next_letter == ' ' or next_letter == '\n'):
-            if next_letter_2 in capital_letters: 
-                number_of_sentence+=1 
+        if x in end_of_sentence and not(previous_letter in end_of_sentence) and next_letter in space:
+            number_of_sentence+=1 
 
         previous_letter = x
         position += 1
         if temp < len(text) - 3:
             next_letter = text[position + 2]
-            next_letter_2 = text[position + 3]
         else:
             number_of_sentence+=1
             break
@@ -87,7 +85,7 @@ def letters_statistics(text):
     sign_counter = 0
 
     for x in text.lower():
-        if not(ord(x) in ascii_numbers_of_sign) and not(x in digits) and x != '\n':
+        if x.upper() in capital_letters:
             sign_counter += 1
             if not(x in letters):
                 letters[x] = 1
