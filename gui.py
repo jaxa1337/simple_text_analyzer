@@ -10,9 +10,9 @@ file_list_column = [
         [sg.Text("Choose file: "), 
         sg.In(size=(20, 1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
-        [sg.Button('Show text'),
-        sg.Button('Word counter'),
-        sg.Button('Basic statistics')],
+        [sg.Button('Show text'), sg.Button('Word counter'), sg.Button('Basic statistics')],
+        [sg.Button('Signs statistics'), sg.Button('Letters statistics')],
+        [sg.Button('Vowels and consonats statistics')],
         [sg.Text('', size = (35,1), key='-STAT1-')],
         [sg.Text('', size = (35,1), key='-STAT2-')],
         [sg.Text('', size = (35,1), key='-STAT3-')],
@@ -28,7 +28,7 @@ image_viewer_column = [
         [sg.Multiline(key="-TEXT-", size=(60,30))],
     ]
 
-layout = [[sg.Column(file_list_column,pad = (0,0), justification = 'center'),sg.VSeperator(),sg.Column(image_viewer_column,pad = (0,0))]]
+layout = [[sg.Column(file_list_column,pad = (0,0), element_justification='left'),sg.VSeperator(),sg.Column(image_viewer_column,pad = (0,0))]]
 window = sg.Window("Simple text analyzer", layout, resizable = False)
 
 while True:
