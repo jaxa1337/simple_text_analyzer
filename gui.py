@@ -3,41 +3,55 @@ import os.path
 import os
 import actions
 import ntpath
+sg.theme('SystemDefault')
+files_types = ('*.txt','*.doc')
 
-tuple_of_files_types = ('*.txt','*.doc')
-y = 50
-x = 50
 file_list_column = [
         [sg.Text("Choose file: "), 
         sg.In(size=(20, 1), enable_events=True, key="-FILE-"), 
-        sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',tuple_of_files_types)))],
-        [sg.Button('ShowText')],
+        sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
+        [sg.Button('Show text'),
+        sg.Button('Word counter')],
+        [sg.Text('', size = (35,1), key='-STAT1-'),
+         sg.Text('', size = (35,1), key='-STAT1-'),
+         sg.Text('', size = (35,1), key='-STAT1-'),
+        ],
         # [sg.Button('')],
-        # [sg.Button('')],
-        [sg.Button('End')]
+        [sg.Text(size = (30,1)),sg.Button(' End ')]
     ]
 
 image_viewer_column = [
-        [sg.Text("File name:",key = '-NameOut-',size=(29,1))],
-        [sg.Multiline(key="-TEXT-", size=(60,50))],
+        [sg.Text("File name:"), sg.Text(key = '-NameOut-',size=(25,1))],
+        [sg.Multiline(key="-TEXT-", size=(60,30))],
     ]
 
-layout = [[sg.Column(file_list_column),sg.VSeperator(),sg.Column(image_viewer_column)]]
-# Create the window
-window = sg.Window("Simple text analyzer", layout, resizable = True)
+layout = [[sg.Column(file_list_column,pad = (0,0), justification = 'center'),sg.VSeperator(),sg.Column(image_viewer_column,pad = (0,0))]]
+window = sg.Window("Simple text analyzer", layout, resizable = False)
 
-# Create an event loop
 while True:
     event, values = window.read()
-    count = 0
-    if event == '-FILE-':
-        filename = 'File name: '+ ntpath.basename(values["-FILE-"])
-        window['-NameOut-'].update(filename)
 
-    if event == 'ShowText':
-        text_file = open(values['-FILE-'],'r',encoding='utf-8')
-        text = text_file.read()
-        window['-TEXT-'].update(text)
+    if event == '-FILE-':
+        try:
+            filename = ntpath.basename(values["-FILE-"])
+            window['-NameOut-'].update(filename)
+            text_file = open(values['-FILE-'],'r',encoding='utf-8')
+            text = text_file.read()
+        except:
+            pass
+
+    if event == 'Show text':
+        try:
+            window['-TEXT-'].update(text)
+        except: 
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
+    if event == 'Word counter':
+        try:
+            window['-STAT1-'].update('There are %d words in the text.\n' % actions.count_words(text))
+        except: 
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
     elif event == "End" or event == sg.WIN_CLOSED:
         break
 
