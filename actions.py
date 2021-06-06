@@ -58,13 +58,9 @@ def count_sentence(text):
 def basic_statistics(text):
 
     len_of_text = len(text)
-    print('Number of words: %d' % count_words(text))
-    print('Number of all characters: %d' % len_of_text)
-    print('Number of characters without spaces: %d' % (len_of_text - count_sign(text, ' ')))
-    print('Number of punctuation marks: %d' % count_sign(text, punctuation_marks))
-    print('Number of digits: %d' % count_sign(text, digits))
-    print('Number of sentence: %d' % count_sentence(text))
-    print('')
+    list_of_statistics = [count_words(text),len_of_text, (len_of_text - count_sign(text, ' ')),count_sign(text, punctuation_marks),
+                        count_sign(text, digits),count_sentence(text)]
+    return list_of_statistics
 
 
 def sign_statistics(text):

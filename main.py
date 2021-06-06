@@ -2,9 +2,6 @@
     print('3 - Basic statistics.\n4 - Signs statistics\n5 - Letters statistics')
     print('6 - Consonants and vowels')
 
-    elif action == 3:
-        print(pline,'Basic statistics',pline)
-        actions.basic_statistics(text)
     elif action == 4:
         print(pline,'Signs statistics',pline)
         actions.sign_statistics(text)

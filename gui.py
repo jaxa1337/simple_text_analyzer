@@ -11,11 +11,14 @@ file_list_column = [
         sg.In(size=(20, 1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
         [sg.Button('Show text'),
-        sg.Button('Word counter')],
-        [sg.Text('', size = (35,1), key='-STAT1-'),
-         sg.Text('', size = (35,1), key='-STAT1-'),
-         sg.Text('', size = (35,1), key='-STAT1-'),
-        ],
+        sg.Button('Word counter'),
+        sg.Button('Basic statistics')],
+        [sg.Text('', size = (35,1), key='-STAT1-')],
+        [sg.Text('', size = (35,1), key='-STAT2-')],
+        [sg.Text('', size = (35,1), key='-STAT3-')],
+        [sg.Text('', size = (35,1), key='-STAT4-')],
+        [sg.Text('', size = (35,1), key='-STAT5-')],
+        [sg.Text('', size = (35,1), key='-STAT6-')],
         # [sg.Button('')],
         [sg.Text(size = (30,1)),sg.Button(' End ')]
     ]
@@ -48,7 +51,19 @@ while True:
 
     if event == 'Word counter':
         try:
-            window['-STAT1-'].update('There are %d words in the text.\n' % actions.count_words(text))
+            window['-STAT1-'].update('Number of words: %d' % actions.count_words(text))
+        except: 
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
+    if event == 'Basic statistics':
+        try:
+            list_of_statistics = actions.basic_statistics(text)
+            window['-STAT1-'].update('Number of words: %d' % list_of_statistics[0])
+            window['-STAT2-'].update('Number of all characters: %d' % list_of_statistics[1])
+            window['-STAT3-'].update('Number of characters without spaces: %d' % list_of_statistics[2])
+            window['-STAT4-'].update('Number of punctuation marks: %d' % list_of_statistics[3])
+            window['-STAT5-'].update('Number of digits: %d' % list_of_statistics[4])
+            window['-STAT6-'].update('Number of sentence: %d' % list_of_statistics[5])
         except: 
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
