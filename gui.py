@@ -10,7 +10,6 @@ file_list_column = [
         [sg.Text("Choose file: "), 
         sg.In(size=(20, 1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
-        [sg.Button('Show text'), sg.Button('Word counter'), sg.Button('Basic statistics')],
         [sg.Button('Signs statistics'), sg.Button('Letters statistics')],
         [sg.Button('Vowels and consonats statistics')],
         [sg.Text('', size = (35,1), key='-STAT1-')],
@@ -43,20 +42,8 @@ while True:
         except:
             pass
 
-    if event == 'Show text':
         try:
             window['-TEXT-'].update(text)
-        except: 
-            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
-
-    if event == 'Word counter':
-        try:
-            window['-STAT1-'].update('Number of words: %d' % actions.count_words(text))
-        except: 
-            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
-
-    if event == 'Basic statistics':
-        try:
             list_of_statistics = actions.basic_statistics(text)
             window['-STAT1-'].update('Number of words: %d' % list_of_statistics[0])
             window['-STAT2-'].update('Number of all characters: %d' % list_of_statistics[1])
@@ -64,10 +51,10 @@ while True:
             window['-STAT4-'].update('Number of punctuation marks: %d' % list_of_statistics[3])
             window['-STAT5-'].update('Number of digits: %d' % list_of_statistics[4])
             window['-STAT6-'].update('Number of sentence: %d' % list_of_statistics[5])
-        except: 
+        except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
-    elif event == "End" or event == sg.WIN_CLOSED:
+    if event == " End " or event == sg.WIN_CLOSED:
         break
 
 window.close()
