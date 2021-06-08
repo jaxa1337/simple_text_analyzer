@@ -72,7 +72,7 @@ def sign_statistics(text):
         else:
             signs[x] = 1
 
-    return sorted(signs)
+    return signs
 
 def letters_statistics(text):
     letters = {}
@@ -86,17 +86,7 @@ def letters_statistics(text):
             else:
                 letters[x] += 1 
 
-    return sorted(letters), sum(letters.values())
-
-    
-    # cont = 'null'
-    # while cont != 'Y' or cont != 'N':
-    #     cont = input('Do you want to draw a chart? [Y/N]: ')
-    #     if cont == 'Y':
-    #         charts.draw_bar_chart(letters)
-    #         break
-    #     elif cont == 'N':
-    #         break
+    return letters, sum(letters.values())
     
 def vowels_and_consonats(text):
     vowelsCounter = 0
@@ -112,11 +102,3 @@ def vowels_and_consonats(text):
                 consonantsCounter +=1
     return vowelsCounter, consonantsCounter
     
-    # cont = 'null'
-    # while cont != 'Y' or cont != 'N':
-    #     cont = input('Do you want to draw a chart? [Y/N]: ')
-    #     if cont == 'Y':
-    #         charts.draw_pie_chart([vowelsCounter,consonantsCounter],['Vowels','Consonants'])
-    #         break
-    #     elif cont == 'N':
-    #         break

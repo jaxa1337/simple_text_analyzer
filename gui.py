@@ -3,6 +3,8 @@ import os.path
 import os
 import actions
 import ntpath
+import charts
+
 sg.theme('SystemDefault')
 files_types = ('*.txt','*.doc')
 
@@ -59,18 +61,21 @@ while True:
     if event == 'Signs statistics':
         try:
             sign_stat_dict = actions.sign_statistics(text)
+            charts.draw_bar_chart(sign_stat_dict)
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
     if event == 'Letters statistics':
         try:
-            letter_stat_dict = actions.letters_statistics(text)
+            letter_stat_dict, sum_of_letters = actions.letters_statistics(text)
+            charts.draw_bar_chart(letter_stat_dict)
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
     if event == 'Vowels and consonats statistics':
         try:
-            vc_stat_dict = actions.vowels_and_consonats(text)
+            vowels_sum, consonats_sum = actions.vowels_and_consonats(text)
+            charts.draw_pie_chart([vowels_sum,consonats_sum],['Vowels','Consonants'])
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
