@@ -8,7 +8,7 @@ files_types = ('*.txt','*.doc')
 
 file_list_column = [
         [sg.Text("Choose file: "), 
-        sg.In(size=(20, 1), enable_events=True, key="-FILE-"), 
+        sg.In(size=(38, 1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
         [sg.Button('Signs statistics'), sg.Button('Letters statistics'),sg.Button('Vowels and consonats statistics')],
     ]
@@ -29,6 +29,7 @@ end_button_column = [[sg.Button('End', size = (15, 1))]]
 
 layout = [[sg.Column(file_list_column, pad = ((0,0),(0,0)), element_justification='center')],[sg.Column(stat_column, pad = ((0,0),(0,0)),element_justification = 'left')],
         [sg.Column(text_viewer_column,pad = ((0,0),(0,0)), element_justification = 'center')],[sg.Column(end_button_column,pad = ((300,0),(0,0)),element_justification = 'right')]]
+
 window = sg.Window("Simple text analyzer", layout, resizable = False)
 
 while True:
@@ -52,6 +53,24 @@ while True:
             window['-STAT4-'].update(list_of_statistics[3])
             window['-STAT5-'].update(list_of_statistics[4])
             window['-STAT6-'].update(list_of_statistics[5])
+        except:
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
+    if event == 'Signs statistics':
+        try:
+            sign_stat_dict = actions.sign_statistics(text)
+        except:
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
+    if event == 'Letters statistics':
+        try:
+            letter_stat_dict = actions.letters_statistics(text)
+        except:
+            sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
+
+    if event == 'Vowels and consonats statistics':
+        try:
+            vc_stat_dict = actions.vowels_and_consonats(text)
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 

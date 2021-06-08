@@ -67,16 +67,12 @@ def sign_statistics(text):
     signs = {}
 
     for x in text:
-        if not(x in signs):
-            signs[x] = 1
-        else:
+        if x in signs:
             signs[x] += 1 
-
-    for key in sorted(signs):
-        if key != '\n':
-            print('Sign "',key,'" :',signs[key],' \t| Percent: %.2f' %((signs[key]/len(text))*100),'%')
         else:
-            print('Sign \'New line\':', signs[key],' | Percent: %.2f' %((signs[key]/len(text))*100),'%')
+            signs[x] = 1
+
+    return sorted(signs)
 
 def letters_statistics(text):
     letters = {}
@@ -90,19 +86,17 @@ def letters_statistics(text):
             else:
                 letters[x] += 1 
 
-    for key in sorted(letters):
-        print('Letter "',key,'" :',letters[key],' \t| Percent: %.2f' %((letters[key]/(len(text)-sign_counter))*100),'%')
+    return sorted(letters), sum(letters.values())
 
-    print('Sum of all letters: {sum_}'.format(sum_ = sum(letters.values())))
     
-    cont = 'null'
-    while cont != 'Y' or cont != 'N':
-        cont = input('Do you want to draw a chart? [Y/N]: ')
-        if cont == 'Y':
-            charts.draw_bar_chart(letters)
-            break
-        elif cont == 'N':
-            break
+    # cont = 'null'
+    # while cont != 'Y' or cont != 'N':
+    #     cont = input('Do you want to draw a chart? [Y/N]: ')
+    #     if cont == 'Y':
+    #         charts.draw_bar_chart(letters)
+    #         break
+    #     elif cont == 'N':
+    #         break
     
 def vowels_and_consonats(text):
     vowelsCounter = 0
@@ -116,15 +110,13 @@ def vowels_and_consonats(text):
                 vowelsCounter += 1
             else:
                 consonantsCounter +=1
-
-    print('Number of vowels: {v}    \t| Procent: {pv:.2f}%'.format(v = vowelsCounter, pv = vowelsCounter/letterCounter*100))
-    print('Number of consonats: {c} \t| Procent: {pc:.2f}%'.format(c = consonantsCounter, pc = consonantsCounter/letterCounter*100))
+    return vowelsCounter, consonantsCounter
     
-    cont = 'null'
-    while cont != 'Y' or cont != 'N':
-        cont = input('Do you want to draw a chart? [Y/N]: ')
-        if cont == 'Y':
-            charts.draw_pie_chart([vowelsCounter,consonantsCounter],['Vowels','Consonants'])
-            break
-        elif cont == 'N':
-            break
+    # cont = 'null'
+    # while cont != 'Y' or cont != 'N':
+    #     cont = input('Do you want to draw a chart? [Y/N]: ')
+    #     if cont == 'Y':
+    #         charts.draw_pie_chart([vowelsCounter,consonantsCounter],['Vowels','Consonants'])
+    #         break
+    #     elif cont == 'N':
+    #         break
