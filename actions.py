@@ -65,6 +65,7 @@ def basic_statistics(text):
 
 def sign_statistics(text):
     signs = {}
+    sort_dict = {}
 
     for x in text:
         if x in signs:
@@ -72,7 +73,14 @@ def sign_statistics(text):
         else:
             signs[x] = 1
 
-    return signs
+    v = sorted(signs.values(), reverse= True)
+
+    for j in v:
+        for i in signs:
+            if signs[i] == j:
+                sort_dict[i] = j
+
+    return sort_dict
 
 def letters_statistics(text):
     letters = {}

@@ -13,24 +13,21 @@ file_list_column = [
         sg.In(size=(38, 1), enable_events=True, key="-FILE-"), 
         sg.FileBrowse(file_types=(("Text Files", "*.txt"),('Word Files','*.doc'),('All types of files',files_types)))],
         [sg.Button('Signs statistics'), sg.Button('Letters statistics'),sg.Button('Vowels and consonats statistics')],
+        [sg.Text("File name:", size=(30,1)), sg.Text(key = '-NameOut-',size=(20,1),justification = 'right')],
+        [sg.Text("Number of words:",size=(30,1)),sg.Text(key = '-STAT1-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of all characters:",size=(30,1)),sg.Text(key = '-STAT2-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of characters without spaces:",size=(30,1)),sg.Text(key = '-STAT3-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of punctuation marks:",size=(30,1)),sg.Text(key = '-STAT4-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of digits:",size=(30,1)),sg.Text(key = '-STAT5-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of sentence:",size=(30,1), justification = 'left'),sg.Text(key = '-STAT6-', size=(20,1),justification = 'right')],
+        [sg.Multiline(key="-TEXT-", size=(60,40), justification = 'left')],
+        [sg.Button('End', size = (15, 1),pad = ((300,0),(0,0)))]
     ]
 
-stat_column = [
-    [sg.Text("File name:"), sg.Text(key = '-NameOut-',size=(25,1))],
-    [sg.Text("Number of words:"),sg.Text(key = '-STAT1-', size=(20,1))],
-    [sg.Text("Number of all characters:"),sg.Text(key = '-STAT2-', size=(20,1))],
-    [sg.Text("Number of characters without spaces:"),sg.Text(key = '-STAT3-', size=(20,1))],
-    [sg.Text("Number of punctuation marks:"),sg.Text(key = '-STAT4-', size=(20,1))],
-    [sg.Text("Number of digits:"),sg.Text(key = '-STAT5-', size=(20,1))],
-    [sg.Text("Number of sentence:"),sg.Text(key = '-STAT6-', size=(20,1))]
-]
+stat_chart_column = [[sg.Text("Additional information",size = (30,1), justification = 'center', font = 'bold')],
+                    [sg.Multiline(key="-LETTER-STAT-", size = (40,55),do_not_clear = True, font='courier 10')]]
 
-text_viewer_column = [[sg.Multiline(key="-TEXT-", size=(60,30))]]
-
-end_button_column = [[sg.Button('End', size = (15, 1))]]
-
-layout = [[sg.Column(file_list_column, pad = ((0,0),(0,0)), element_justification='center')],[sg.Column(stat_column, pad = ((0,0),(0,0)),element_justification = 'left')],
-        [sg.Column(text_viewer_column,pad = ((0,0),(0,0)), element_justification = 'center')],[sg.Column(end_button_column,pad = ((300,0),(0,0)),element_justification = 'right')]]
+layout = [[sg.Column(file_list_column, pad = ((0,0),(0,0))),sg.Column(stat_chart_column, element_justification = 'center', visible=False, key = '-COLUMN2-')]]
 
 window = sg.Window("Simple text analyzer", layout, resizable = False)
 
@@ -61,7 +58,26 @@ while True:
     if event == 'Signs statistics':
         try:
             sign_stat_dict = actions.sign_statistics(text)
-            charts.draw_bar_chart(sign_stat_dict)
+            for letter in sign_stat_dict:
+                if letter != '\n':
+                    percent = sign_stat_dict[letter]/list_of_statistics[1]*100
+                    if sign_stat_dict[letter] > 9999:
+                        window['-LETTER-STAT-'].update('Character: {0} = {1} | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        continue
+                    if sign_stat_dict[letter] > 999:                        
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}  | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        continue
+                    if sign_stat_dict[letter] > 99:                        
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}   | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        continue
+                    if sign_stat_dict[letter] > 9:
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}    | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        continue
+                    else:
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}     | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+
+            window['-COLUMN2-'].update(visible = True)
+            window.refresh()
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
@@ -75,7 +91,7 @@ while True:
     if event == 'Vowels and consonats statistics':
         try:
             vowels_sum, consonats_sum = actions.vowels_and_consonats(text)
-            charts.draw_pie_chart([vowels_sum,consonats_sum],['Vowels','Consonants'])
+            # charts.draw_pie_chart([vowels_sum,consonats_sum],['Vowels','Consonants'])
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
