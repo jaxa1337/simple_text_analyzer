@@ -1,10 +1,13 @@
 **Simple text anlyzer allows you to easily analyse the content of the text** <br/>
 (It's my first program. I wrote this while I was learing Python)
 
-**Start:** python main.py <br/>
-Paste your text into the text.txt file
+**Start:** python gui.py <br/>
+You can choose your file in filebrowser.<br> 
+Types of available files:
+- .doc
+- .txt
 
-**Aviable actions:**
+**Functionality:**
 1. Print text - it simply displays the text
 2. Count the words - counts the number of words
 3. Basic statistics - this action shows: 
@@ -15,5 +18,9 @@ Paste your text into the text.txt file
     - Number of digits
     - Number of sentences
 4. Sign statistics - count each sign 
-5. Letters statistics - count each letter 
+5. Letters statistics - shows graph with statistic of letters
+6. Vowels and consonants - shows pie graph which presents percentage share of vowels and consonants 
 
+__Used libraries:__
+* PySimpleGUI
+* matplotlib
