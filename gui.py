@@ -19,7 +19,7 @@ file_list_column = [
         [sg.Text("Number of characters without spaces:",size=(30,1)),sg.Text(key = '-STAT3-', size=(20,1),justification = 'right')],
         [sg.Text("Number of punctuation marks:",size=(30,1)),sg.Text(key = '-STAT4-', size=(20,1),justification = 'right')],
         [sg.Text("Number of digits:",size=(30,1)),sg.Text(key = '-STAT5-', size=(20,1),justification = 'right')],
-        [sg.Text("Number of sentence:",size=(30,1), justification = 'left'),sg.Text(key = '-STAT6-', size=(20,1),justification = 'right')],
+        [sg.Text("Number of sentences:",size=(30,1), justification = 'left'),sg.Text(key = '-STAT6-', size=(20,1),justification = 'right')],
         [sg.Multiline(key="-TEXT-", size=(60,40), justification = 'left')],
         [sg.Button('End', size = (15, 1),pad = ((300,0),(0,0)))]
     ]
@@ -58,23 +58,24 @@ while True:
     if event == 'Signs statistics':
         try:
             sign_stat_dict = actions.sign_statistics(text)
+            window['-LETTER-STAT-'].update('')
             for letter in sign_stat_dict:
                 if letter != '\n':
                     percent = sign_stat_dict[letter]/list_of_statistics[1]*100
                     if sign_stat_dict[letter] > 9999:
-                        window['-LETTER-STAT-'].update('Character: {0} = {1} | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        window['-LETTER-STAT-'].update('Character: {0} = {1} | Percent: {2:.4f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
                         continue
                     if sign_stat_dict[letter] > 999:                        
-                        window['-LETTER-STAT-'].update('Character: {0} = {1}  | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}  | Percent: {2:.4f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
                         continue
                     if sign_stat_dict[letter] > 99:                        
-                        window['-LETTER-STAT-'].update('Character: {0} = {1}   | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}   | Percent: {2:.4f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
                         continue
                     if sign_stat_dict[letter] > 9:
-                        window['-LETTER-STAT-'].update('Character: {0} = {1}    | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}    | Percent: {2:.4f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
                         continue
                     else:
-                        window['-LETTER-STAT-'].update('Character: {0} = {1}     | Percent: {2:.2f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
+                        window['-LETTER-STAT-'].update('Character: {0} = {1}     | Percent: {2:.4f}%\n'.format(letter, sign_stat_dict[letter], percent), append = True)
 
             window['-COLUMN2-'].update(visible = True)
             window.refresh()
@@ -91,7 +92,7 @@ while True:
     if event == 'Vowels and consonats statistics':
         try:
             vowels_sum, consonats_sum = actions.vowels_and_consonats(text)
-            # charts.draw_pie_chart([vowels_sum,consonats_sum],['Vowels','Consonants'])
+            charts.draw_pie_chart([vowels_sum,consonats_sum],['Vowels','Consonants'])
         except:
             sg.popup("YOU MUST CHOOSE A FILE!", title = 'ERROR')
 
